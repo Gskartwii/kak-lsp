@@ -8,19 +8,19 @@ declare-option -docstring "Command with which lsp is run" str lsp_cmd "kak-lsp -
 
 # Faces used by inline diagnostics.
 set-face global DiagnosticError red
-set-face global DiagnosticWarning yellow
+set-face global DiagnosticHint cyan
 set-face global DiagnosticInfo blue
-set-face global DiagnosticHint default
+set-face global DiagnosticWarning yellow
 # Faces used by inlay diagnostics.
 set-face global InlayDiagnosticError DiagnosticError
-set-face global InlayDiagnosticWarning DiagnosticWarning
-set-face global InlayDiagnosticInfo DiagnosticInfo
 set-face global InlayDiagnosticHint DiagnosticHint
+set-face global InlayDiagnosticInfo DiagnosticInfo
+set-face global InlayDiagnosticWarning DiagnosticWarning
 # Faces used by line flags
 set-face global LineFlagError red
-set-face global LineFlagWarning yellow
+set-face global LineFlagHint cyan
 set-face global LineFlagInfo blue
-set-face global LineFlagHint default
+set-face global LineFlagWarning yellow
 # Face for highlighting references.
 set-face global Reference MatchingChar
 set-face global ReferenceBind +u@Reference
@@ -66,10 +66,10 @@ try %{
 declare-option -docstring "DEPRECATED, use %opt{lsp_config}. Configuration to send in workspace/didChangeConfiguration messages" str-to-str-map lsp_server_configuration
 declare-option -docstring "DEPRECATED, use %opt{lsp_config}. Configuration to send in initializationOptions of Initialize messages." str-to-str-map lsp_server_initialization_options
 # Line flags for inline diagnostics.
-declare-option -docstring "Character to signal an error in the gutter" str lsp_diagnostic_line_error_sign '*'
-declare-option -docstring "Character to signal a warning in the gutter" str lsp_diagnostic_line_warning_sign '!'
 declare-option -docstring "Character to signal a hint in the gutter" str lsp_diagnostic_line_hint_sign '-'
+declare-option -docstring "Character to signal an error in the gutter" str lsp_diagnostic_line_error_sign '*'
 declare-option -docstring "Character to signal an info in the gutter" str lsp_diagnostic_line_info_sign 'i'
+declare-option -docstring "Character to signal a warning in the gutter" str lsp_diagnostic_line_warning_sign '!'
 # Another good default:
 # set-option global lsp_diagnostic_line_error_sign '▓'
 # set-option global lsp_diagnostic_line_warning_sign '▒'
@@ -101,9 +101,9 @@ Capture groups must be:
 
 # Count of diagnostics published for the current buffer.
 declare-option -docstring "Number of errors" int lsp_diagnostic_error_count 0
-declare-option -docstring "Number of warnings" int lsp_diagnostic_warning_count 0
 declare-option -docstring "Number of hints" int lsp_diagnostic_hint_count 0
 declare-option -docstring "Number of infos" int lsp_diagnostic_info_count 0
+declare-option -docstring "Number of warnings" int lsp_diagnostic_warning_count 0
 
 # Internal variables.
 
