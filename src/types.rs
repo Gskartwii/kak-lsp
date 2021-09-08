@@ -1,5 +1,5 @@
 use jsonrpc_core::{Call, Output, Params};
-use lsp_types::{Position, Range, SemanticTokenModifier};
+use lsp_types::{DiagnosticSeverity, Position, Range, SemanticTokenModifier};
 use serde::{de::Error as SerdeError, Deserialize, Deserializer, Serialize};
 use serde_json::Value;
 use std::borrow::Cow;
@@ -242,4 +242,5 @@ pub struct LineDiagnostics {
     pub symbols: String,
     pub text: String,
     pub text_face: String,
+    pub text_severity: Option<DiagnosticSeverity>,
 }

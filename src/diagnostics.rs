@@ -86,14 +86,33 @@ pub fn publish_diagnostics(params: Params, ctx: &mut Context) {
             .or_insert(LineDiagnostics {
                 range_end: x.range.end,
                 symbols: String::new(),
-                text: x
+                text: String::new(),
+                text_face: String::new(),
+                text_severity: None,
+            });
+
+        if let Some(severity) = x.severity {
+            let mut should_override = false;
+            if let Some(text_severity) = line_diagnostics.text_severity {
+                // Error is lowest, Hint is highest
+                if text_severity > severity {
+                    should_override = true;
+                }
+            } else {
+                should_override = true;
+            }
+
+            if should_override {
+                line_diagnostics.text = x
                     .message
                     .split('\n')
                     .next()
                     .unwrap_or_default()
-                    .replace("|", "\\|"),
-                text_face: face.to_string(),
-            });
+                    .replace("|", "\\|");
+                line_diagnostics.text_face = face.to_string();
+                line_diagnostics.text_severity = x.severity;
+            }
+        }
 
         line_diagnostics
             .symbols
