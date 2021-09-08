@@ -1269,7 +1269,7 @@ define-command lsp-inline-diagnostics-disable -params 1 -docstring "lsp-inline-d
 }
 
 define-command lsp-diagnostic-lines-enable -params 1 -docstring "lsp-diagnostic-lines-enable <scope>: Show flags on lines with diagnostics in <scope>" %{
-    add-highlighter "%arg{1}/lsp_error_lines" flag-lines LineFlagErrors lsp_error_lines
+    add-highlighter "%arg{1}/lsp_error_lines" flag-lines default lsp_error_lines
 }
 
 define-command lsp-diagnostic-lines-disable -params 1 -docstring "lsp-diagnostic-lines-disable <scope>: Hide flags on lines with diagnostics in <scope>"  %{

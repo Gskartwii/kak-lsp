@@ -51,19 +51,19 @@ pub fn publish_diagnostics(params: Params, ctx: &mut Context) {
                 match x.severity {
                     Some(DiagnosticSeverity::Error) => {
                         error_count += 1;
-                        "%opt[lsp_diagnostic_line_error_sign]"
+                        "{LineFlagError}%opt[lsp_diagnostic_line_error_sign]"
                     }
                     Some(DiagnosticSeverity::Hint) => {
                         hint_count += 1;
-                        "%opt[lsp_diagnostic_line_hint_sign]"
+                        "{LineFlagHint}%opt[lsp_diagnostic_line_hint_sign]"
                     }
                     Some(DiagnosticSeverity::Information) => {
                         info_count += 1;
-                        "%opt[lsp_diagnostic_line_info_sign]"
+                        "{LineFlagInfo}%opt[lsp_diagnostic_line_info_sign]"
                     }
                     _ => {
                         warning_count += 1;
-                        "%opt[lsp_diagnostic_line_warning_sign]"
+                        "{LineFlagWarning}%opt[lsp_diagnostic_line_warning_sign]"
                     }
                 }
             )
