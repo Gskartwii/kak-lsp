@@ -42,7 +42,7 @@ pub fn publish_diagnostics(params: Params, ctx: &mut Context) {
     let mut warning_count: u32 = 0;
     let mut info_count: u32 = 0;
     let mut hint_count: u32 = 0;
-    let mut line_flags = diagnostics
+    let line_flags = diagnostics
         .iter()
         .map(|x| {
             format!(
