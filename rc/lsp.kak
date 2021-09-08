@@ -9,11 +9,18 @@ declare-option -docstring "Command with which lsp is run" str lsp_cmd "kak-lsp -
 # Faces used by inline diagnostics.
 set-face global DiagnosticError red
 set-face global DiagnosticWarning yellow
+set-face global DiagnosticInfo blue
+set-face global DiagnosticHint default
 # Faces used by inlay diagnostics.
 set-face global InlayDiagnosticError DiagnosticError
 set-face global InlayDiagnosticWarning DiagnosticWarning
-# Line flags for errors and warnings both use this face.
-set-face global LineFlagErrors red
+set-face global InlayDiagnosticInfo DiagnosticInfo
+set-face global InlayDiagnosticHint DiagnosticHint
+# Faces used by line flags
+set-face global LineFlagError red
+set-face global LineFlagWarning yellow
+set-face global LineFlagInfo blue
+set-face global LineFlagHint default
 # Face for highlighting references.
 set-face global Reference MatchingChar
 set-face global ReferenceBind +u@Reference
@@ -61,6 +68,8 @@ declare-option -docstring "DEPRECATED, use %opt{lsp_config}. Configuration to se
 # Line flags for inline diagnostics.
 declare-option -docstring "Character to signal an error in the gutter" str lsp_diagnostic_line_error_sign '*'
 declare-option -docstring "Character to signal a warning in the gutter" str lsp_diagnostic_line_warning_sign '!'
+declare-option -docstring "Character to signal a hint in the gutter" str lsp_diagnostic_line_hint_sign '-'
+declare-option -docstring "Character to signal an info in the gutter" str lsp_diagnostic_line_info_sign 'i'
 # Another good default:
 # set-option global lsp_diagnostic_line_error_sign '▓'
 # set-option global lsp_diagnostic_line_warning_sign '▒'
@@ -75,7 +84,7 @@ if [ -n "${lsp_diagnostics}" ]; then
     printf "{+b@InfoDefault}Diagnostics:{InfoDefault}\n%s" "${lsp_diagnostics}"
 fi
 }
-# If you want to see only hover info, try 
+# If you want to see only hover info, try
 # set-option global lsp_show_hover_format 'printf %s "${lsp_info}"'
 
 declare-option -docstring %{Defines location patterns for lsp-next-location and lsp-previous-location.
@@ -93,6 +102,8 @@ Capture groups must be:
 # Count of diagnostics published for the current buffer.
 declare-option -docstring "Number of errors" int lsp_diagnostic_error_count 0
 declare-option -docstring "Number of warnings" int lsp_diagnostic_warning_count 0
+declare-option -docstring "Number of hints" int lsp_diagnostic_hint_count 0
+declare-option -docstring "Number of infos" int lsp_diagnostic_info_count 0
 
 # Internal variables.
 
@@ -434,7 +445,7 @@ define-command -hidden lsp-workspace-symbol-buffer -params 4 -docstring %{
     Open buffer with a list of project-wide symbols matching the query
     on behalf of the buffile at timestamp
 } %{
-    lsp-did-change-and-then "lsp-workspace-symbol-buffer-request '%arg{1}' '%arg{2}' '%arg{3}' '%arg{4}'" 
+    lsp-did-change-and-then "lsp-workspace-symbol-buffer-request '%arg{1}' '%arg{2}' '%arg{3}' '%arg{4}'"
 }
 
 define-command -hidden lsp-workspace-symbol-buffer-request -params 4 -docstring %{
